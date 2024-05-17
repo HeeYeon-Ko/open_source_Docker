@@ -1,0 +1,26 @@
+{% if todos %}
+<div class="card" style="width: 49rem;">
+    <ul class="list-group list-group-flush">
+        {% for todo in todos %}
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            <div class="{% if todo.completed %} text-success text-decoration-line-through {% endif %}">
+                {{ todo.title }}
+            </div>
+            <div>
+                <span class="action badge rounded-pill text-bg-warning" hx-get="{% url 'complete_todo' todo.pk %}"
+                  hx-target="#todoList" style="cursor: pointer;">완료</span>
+                <span class="action badge rounded-pill text-bg-danger" hx-delete="{% url 'delete_todo' todo.pk %}"
+                  hx-target="#todoList" hx-confirm="이 항목을 삭제하시겠습니까?" style="cursor: pointer;">삭제</span>
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+
+{% else %}
+
+<h5>현재 To do List는 비어있습니다.</h5>
+
+{% endif %}
+
+
